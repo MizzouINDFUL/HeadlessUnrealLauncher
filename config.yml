@@ -1,0 +1,6 @@
+--- # Config file for Unreal Launcher
+unreal:
+	use_docker: false
+	headless: true
+	engine_path: "/home/mindful/EpicGames/UE5.1"
+	project_path: "/home/mindful/Documents/UnrealProjects/Blocks"

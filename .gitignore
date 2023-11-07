@@ -1,0 +1,5 @@
+src/logs/Unreal.log
+/src/plugins_link/*/Intermediate
+/src/plugins_link/*/Binaries
+/src/plugins_copy/*/Intermediate
+/src/plugins_copy/*/Binaries
