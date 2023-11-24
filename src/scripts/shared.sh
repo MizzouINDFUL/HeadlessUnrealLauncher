@@ -35,7 +35,7 @@ function parse_yaml {
 #this function will add a new tracker to the orchestrator
 function bind_script_to_event {
    #check if the SIM session exists
-   if ! tmux has-session -t SIM 2>/dev/null; then
+   if ! tmux has-session -t $SESSIONNAME 2>/dev/null; then
       echo "SIM session does not exist. Please start Unreal Launcher first!"
       exit 1
    fi
@@ -59,20 +59,20 @@ function bind_script_to_event {
    fi
 
    #check if the orchestrator window exists
-   if ! tmux list-windows -t SIM | grep -q "Orchestrator"; then
+   if ! tmux list-windows -t $SESSIONNAME | grep -q "Orchestrator"; then
       echo "Orchestrator window does not exist. Please start Unreal Launcher first!"
       exit 1
    fi
 
    #focus on the Orchestrator window
-   tmux select-window -t SIM:Orchestrator
+   tmux select-window -t $SESSIONNAME:Orchestrator
    #focus on the initial pane of the orchestrator window + split it vertically and run the script in the new pane
    sleep 0.05
-   tmux send-keys -t SIM:Orchestrator "tmux split-window -h" Enter
+   tmux send-keys -t $SESSIONNAME:Orchestrator "tmux split-window -h" Enter
    sleep 0.2
-   # tmux send-keys -t SIM:Orchestrator "tmux rename-window -t \$TMUX_PANE $PANENAME" Enter
-   tmux send-keys -t SIM:Orchestrator "$HOME_DIR/src/scripts/unreal/unreal_tracker.sh \"$1\" \"$2\" \"$CLEARLOG\"" Enter
+   # tmux send-keys -t $SESSIONNAME:Orchestrator "tmux rename-window -t \$TMUX_PANE $PANENAME" Enter
+   tmux send-keys -t $SESSIONNAME:Orchestrator "$HOME_DIR/src/scripts/unreal/unreal_tracker.sh \"$1\" \"$2\" \"$CLEARLOG\"" Enter
    sleep 0.1
    #switch focus back to the first pane
-   tmux select-pane -t SIM:Orchestrator.0
+   tmux select-pane -t $SESSIONNAME:Orchestrator.0
 }
